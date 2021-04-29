@@ -1,7 +1,12 @@
 <template>
   <main class="font-sans-serif h-screen flex flex-col">
-    <header class="bg-yellow-300 border-b p-4">
+    <header class="bg-yellow-300 border-b p-4 flex items-center justify-between">
       <h1 class="text-lg font-bold">Svelte</h1>
+      <a href="https://github.com/adamdburton/svelte" target="_blank" class="flex items-center px-3 py-1 rounded-full hover:bg-black hover:text-yellow-300">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          <div class="ml-2">View on GitHub</div>
+          
+      </a>
     </header>
     <div class="lg:flex flex-1 overflow-auto lg:overflow-hidden">
       <aside class="lg:w-1/2 border-r bg-gray-100 h-screen lg:h-auto relative">
@@ -38,7 +43,7 @@
           </a-assets>
 
           <a-sky color="#ECECEC"></a-sky>
-          <a-ocean width="50" depth="50" density="20" shadow></a-ocean>
+          <a-ocean width="50" depth="50" density="30" position="0 -0.5 0" shadow></a-ocean>
 
           <a-entity light="type: ambient; intensity: 0.6;"></a-entity>
 
@@ -80,7 +85,7 @@
           <a-obj-model
             src="#drone-obj"
             mtl="#drone-mtl"
-            animation__position="property: position; from: -10 11 10; to: 20 8 5; dur: 10000; delay: 2000; loop: true; dir: alternate; easing: linear"
+            animation__position="property: position; from: -10 11 10; to: 20 8 5; dur: 10000; delay: 5000; loop: true; dir: alternate; easing: linear"
             shadow
           ></a-obj-model>
 

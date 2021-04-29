@@ -24,7 +24,7 @@ class InspectionDataController extends Controller
             ],
             [
                 'id' => 3,
-                'position' => [-2, -0.1, -10],
+                'position' => [-2, -0.75, -10],
                 'rotation' => [0, 0, 0],
                 'parts' => $this->getTurbineParts(3)
             ],
