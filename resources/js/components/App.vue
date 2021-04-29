@@ -9,7 +9,7 @@
       </a>
     </header>
     <div class="lg:flex flex-1 overflow-auto lg:overflow-hidden">
-      <aside class="lg:w-1/2 border-r bg-gray-100 h-screen lg:h-auto relative">
+      <aside class="lg:w-1/2 border-r bg-gray-100 h-1/2-screen lg:h-screen lg:h-auto relative pointer-events-none">
         <a-scene
           embedded
           vr-mode-ui="enabled: false"
@@ -43,12 +43,12 @@
           </a-assets>
 
           <a-sky color="#ECECEC"></a-sky>
-          <a-ocean width="50" depth="50" density="30" position="0 -0.5 0" shadow></a-ocean>
+          <a-ocean width="50" depth="50" density="30" position="0 -0.1 0" shadow></a-ocean>
 
           <a-entity light="type: ambient; intensity: 0.6;"></a-entity>
 
           <a-entity
-            animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 60000; loop: true; easing: linear"
+            animation__rotation="property: rotation; from: 45 0 0; to: 45 360 0; loop: true; dur: 60000; dir: reverse; loop: true; easing: linear"
           >
             <a-entity
               light="type: directional; castShadow: true; shadowCameraBottom: -15; shadowCameraLeft: -15; shadowCameraRight: 15; shadowCameraTop: 15; shadowMapHeight: 1024; shadowMapWidth: 1024; intensity: 0.7;"
@@ -111,9 +111,9 @@
       <main class="lg:w-1/2 overflow-auto relative">
         <div v-if="selectedTurbine">
           <div
-            class="flex items-center justify-between p-2 border-b sticky top-0 bg-white"
+            class="lg:flex items-center justify-between p-2 border-b sticky top-0 bg-white"
           >
-            <h1 class="font-bold self-start flex items-center">
+            <h1 class="font-bold self-start flex items-center justify-center lg:justify-left mb-4 lg:mb-0">
               <div class="cursor-pointer hover:underline" @click="clearTurbine">
                 Turbines
               </div>
@@ -129,19 +129,19 @@
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <div>Turbine {{ selectedTurbine.id }}</div>
+              <div>Turbine #{{ selectedTurbine.id }}</div>
             </h1>
             <div class="flex items-center justify-end text-xs gap-x-2">
               <div class="text-gray-500 px-2 py-0.5">Filter components:</div>
               <div
-                class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200"
+                class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200"
                 @click="partFilter = ''"
                 :class="partFilter === '' ? 'bg-yellow-300' : ''"
               >
                 All Components
               </div>
               <div
-                class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200"
+                class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200"
                 @click="partFilter = 'issues'"
                 :class="partFilter === 'issues' ? 'bg-yellow-300' : ''"
               >
@@ -210,9 +210,9 @@
           </table>
         </div>
         <div v-else class="flex flex-col h-full">
-          <div class="flex items-center justify-between p-2 border-b">
-            <h1 class="font-bold self-start">Turbines</h1>
-            <div class="flex items-center justify-end text-xs gap-x-2">
+          <div class="lg:flex items-center justify-between p-2 lg:border-b">
+            <h1 class="font-bold self-start mb-4 lg:mb-0 text-center lg:text-left">Turbines</h1>
+            <div class="flex items-center justify-center lg:justify-end text-xs gap-x-2">
               <div class="text-gray-500 px-2 py-0.5">Filter turbines:</div>
               <div
                 class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200"
@@ -231,11 +231,11 @@
             </div>
           </div>
 
-          <div class="flex flex-wrap gap-8 items-center justify-center flex-1">
+          <div class="flex flex-wrap gap-4 lg:gap-8 items-center justify-center flex-1">
             <div
               v-for="turbine in filteredTurbines"
               :key="turbine.id"
-              class="p-4 bg-white rounded-lg cursor-pointer shadow-lg hover:bg-gray-100"
+              class="p-4 bg-white rounded-lg cursor-pointer lg:shadow-lg hover:bg-gray-100"
               @click="setTurbine(turbine)"
             >
               <h2 class="font-bold">Turbine #{{ turbine.id }}</h2>
