@@ -296,8 +296,7 @@ export default {
       this.selectedTurbineId = null;
 
       // It'd be nice to stop an animation externally without events
-      this.$refs.rig.dispatchEvent(new Event("stop")); 
-      this.$refs.rig.d
+      this.$refs.rig.dispatchEvent(new Event("stop"));
     },
   },
   computed: {
