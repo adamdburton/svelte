@@ -12,19 +12,19 @@ class InspectionDataController extends Controller
         return [
             [
                 'id' => 1,
-                'position' => [4, 1, 2],
+                'position' => [4, 0.1, 2],
                 'rotation' => [0, 65, 0],
                 'parts' => $this->getTurbineParts(1)
             ],
             [
                 'id' => 2,
-                'position' => [-8.5, 1, -4],
+                'position' => [-8.5, 0.1, -4],
                 'rotation' => [0, 20, 0],
                 'parts' => $this->getTurbineParts(2)
             ],
             [
                 'id' => 3,
-                'position' => [-2, 0, -10],
+                'position' => [-2, -0.1, -10],
                 'rotation' => [0, 0, 0],
                 'parts' => $this->getTurbineParts(3)
             ],
