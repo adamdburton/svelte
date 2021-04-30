@@ -1,5 +1,5 @@
 <template>
-  <main class="font-sans-serif h-screen flex flex-col">
+  <main class="font-sans-serif h-screen flex flex-col dark:bg-gray-700">
     <header
       class="bg-yellow-300 border-b dark:border-gray-500 p-4 flex items-center justify-between"
     >
@@ -133,18 +133,18 @@
         </a-scene>
       </aside>
       <main class="lg:w-1/2 overflow-auto relative dark:text-white">
-        <div v-if="selectedTurbine" class="dark:bg-gray-700">
+        <div v-if="selectedTurbine">
           <div
-            class="lg:flex items-center justify-between px-2 py-1 border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-gray-700"
+            class="flex flex-col lg:flex-row items-center justify-between px-2 py-1 border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-gray-700"
           >
             <h1
-              class="self-start flex items-center justify-center cursor-pointer hover:bg-gray-100 rounded-full p-1 pr-2 lg:justify-left mb-4 lg:mb-0 font-bold dark:hover:text-gray-700"
+              class="lself-start flex items-center justify-center cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 rounded-full p-1 pr-2 lg:justify-left mb-4 lg:mb-0 font-bold dark:hover:text-gray-700"
               @click="clearTurbine"
             >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-              <div class="ml-1">Turbine #{{ selectedTurbine.id }}</div>
+              <div class="mx-1">Back</div>
             </h1>
-            <div class="flex items-center justify-center lg:justify-end text-xs gap-x-2">
+            <div class="flex items-center justify-center lg:justify-end text-xs gap-x-2 mb-4 lg:mb-0">
               <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">Filter components:</div>
               <div
                 class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200 dark:hover:text-gray-700"
@@ -222,7 +222,7 @@
             </tbody>
           </table>
         </div>
-        <div v-else class="flex flex-col h-full dark:bg-gray-700">
+        <div v-else class="flex flex-col h-full">
           <div class="lg:flex items-center justify-between p-2 lg:border-b dark:border-gray-500">
             <h1
               class="font-bold self-start mb-4 lg:mb-0 text-center lg:text-left"
