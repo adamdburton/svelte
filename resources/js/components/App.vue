@@ -12,6 +12,7 @@
       <aside class="lg:w-1/2 border-r bg-gray-100 h-1/2-screen lg:h-screen lg:h-auto relative pointer-events-none">
         <a-scene
           embedded
+          device-orientation-permission-ui
           vr-mode-ui="enabled: false"
           cursor="rayOrigin: mouse"
           shadow="type: pcfsoft"
