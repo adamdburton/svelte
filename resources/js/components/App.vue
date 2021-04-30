@@ -1,15 +1,33 @@
 <template>
   <main class="font-sans-serif h-screen flex flex-col">
-    <header class="bg-yellow-300 border-b p-4 flex items-center justify-between">
+    <header
+      class="bg-yellow-300 border-b dark:border-gray-500 p-4 flex items-center justify-between"
+    >
       <h1 class="text-lg font-bold">Svelte</h1>
-      <a href="https://github.com/adamdburton/svelte" target="_blank" class="flex items-center px-3 py-1 rounded-full hover:bg-black hover:text-yellow-300">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-          <div class="ml-2">View on GitHub</div>
-          
+      <a
+        href="https://github.com/adamdburton/svelte"
+        target="_blank"
+        class="flex items-center px-3 py-1 rounded-full hover:bg-black hover:text-yellow-300"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        <div class="ml-2">View on GitHub</div>
       </a>
     </header>
     <div class="lg:flex flex-1 overflow-auto lg:overflow-hidden">
-      <aside class="lg:w-1/2 border-r bg-gray-100 h-1/2-screen lg:h-screen lg:h-auto relative">
+      <aside
+        class="lg:w-1/2 border-r dark:border-gray-500 bg-gray-100 h-1/2-screen lg:h-screen lg:h-auto relative"
+      >
         <a-scene
           embedded
           device-orientation-permission-ui
@@ -44,7 +62,13 @@
           </a-assets>
 
           <a-sky color="#ECECEC"></a-sky>
-          <a-ocean width="50" depth="50" density="30" position="0 -0.1 0" shadow></a-ocean>
+          <a-ocean
+            width="50"
+            depth="50"
+            density="30"
+            position="0 -0.1 0"
+            shadow
+          ></a-ocean>
 
           <a-entity light="type: ambient; intensity: 0.6;"></a-entity>
 
@@ -93,15 +117,14 @@
           <a-entity
             ref="rig"
             id="camera-rig"
-            :position="cameraPosition.join(' ')"
+            :animation__position="cameraPosition"
             :animation__rotation="cameraRotation"
-            rotation="0 0 0"
           >
             <a-entity
               id="camera"
               ref="camera"
               :camera="camera"
-              :position="cameraTrackPosition"
+              :animation__position="cameraTrackPosition"
               rotation="-36 45 0"
             >
               <a-entity cursor />
@@ -109,42 +132,31 @@
           </a-entity>
         </a-scene>
       </aside>
-      <main class="lg:w-1/2 overflow-auto relative">
-        <div v-if="selectedTurbine">
+      <main class="lg:w-1/2 overflow-auto relative dark:text-white">
+        <div v-if="selectedTurbine" class="dark:bg-gray-700">
           <div
-            class="lg:flex items-center justify-between p-2 border-b sticky top-0 bg-white"
+            class="lg:flex items-center justify-between px-2 py-1 border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-gray-700"
           >
-            <h1 class="font-bold self-start flex items-center justify-center lg:justify-left mb-4 lg:mb-0">
-              <div class="cursor-pointer hover:underline" @click="clearTurbine">
-                Turbines
-              </div>
-              <svg
-                class="w-4 h-4 mx-1"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <div>Turbine #{{ selectedTurbine.id }}</div>
+            <h1
+              class="self-start flex items-center justify-center cursor-pointer hover:bg-gray-100 rounded-full p-1 pr-2 lg:justify-left mb-4 lg:mb-0 font-bold dark:hover:text-gray-700"
+              @click="clearTurbine"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <div class="ml-1">Turbine #{{ selectedTurbine.id }}</div>
             </h1>
-            <div class="flex items-center justify-end text-xs gap-x-2">
-              <div class="text-gray-500 px-2 py-0.5">Filter components:</div>
+            <div class="flex items-center justify-center lg:justify-end text-xs gap-x-2">
+              <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">Filter components:</div>
               <div
-                class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200"
+                class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="partFilter = ''"
-                :class="partFilter === '' ? 'bg-yellow-300' : ''"
+                :class="partFilter === '' ? 'bg-yellow-300 dark:text-gray-700' : ''"
               >
                 All Components
               </div>
               <div
-                class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200"
+                class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="partFilter = 'issues'"
-                :class="partFilter === 'issues' ? 'bg-yellow-300' : ''"
+                :class="partFilter === 'issues' ? 'bg-yellow-300 dark:text-gray-700' : ''"
               >
                 Only Components with issues
               </div>
@@ -153,21 +165,21 @@
 
           <table class="text-left w-full">
             <thead>
-              <tr class="text-gray-500 border-b">
-                <th class="p-2 bg-gray-100 font-normal">Component</th>
-                <th class="p-2 bg-gray-100 font-normal">Issues</th>
-                <th class="p-2 bg-gray-100 font-normal text-right">Passing</th>
+              <tr class="text-gray-500 dark:text-gray-300 border-b dark:border-gray-500">
+                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal">Component</th>
+                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal">Issues</th>
+                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal text-right">Passing</th>
               </tr>
             </thead>
             <tbody>
               <tr
                 v-for="inspection in filteredParts"
                 :key="inspection.id"
-                class="border-b"
+                class="border-b dark:border-gray-500"
               >
                 <td class="p-2">
                   <div
-                    class="inline-block px-1.5 py-0.5 bg-yellow-300 rounded-full text-sm"
+                    class="inline-block px-1.5 py-0.5 bg-yellow-300 rounded-full text-sm dark:text-gray-700"
                   >
                     #{{ inspection.id }}
                   </div>
@@ -210,33 +222,41 @@
             </tbody>
           </table>
         </div>
-        <div v-else class="flex flex-col h-full">
-          <div class="lg:flex items-center justify-between p-2 lg:border-b">
-            <h1 class="font-bold self-start mb-4 lg:mb-0 text-center lg:text-left">Turbines</h1>
-            <div class="flex items-center justify-center lg:justify-end text-xs gap-x-2">
-              <div class="text-gray-500 px-2 py-0.5">Filter turbines:</div>
+        <div v-else class="flex flex-col h-full dark:bg-gray-700">
+          <div class="lg:flex items-center justify-between p-2 lg:border-b dark:border-gray-500">
+            <h1
+              class="font-bold self-start mb-4 lg:mb-0 text-center lg:text-left"
+            >
+              Turbines
+            </h1>
+            <div
+              class="flex items-center justify-center lg:justify-end text-xs gap-x-2"
+            >
+              <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">Filter turbines:</div>
               <div
-                class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200"
+                class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="turbineFilter = ''"
-                :class="turbineFilter === '' ? 'bg-yellow-300' : ''"
+                :class="turbineFilter === '' ? 'bg-yellow-300 dark:text-gray-700' : ''"
               >
                 All Turbines
               </div>
               <div
-                class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200"
+                class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="turbineFilter = 'issues'"
-                :class="turbineFilter === 'issues' ? 'bg-yellow-300' : ''"
+                :class="turbineFilter === 'issues' ? 'bg-yellow-300 dark:text-gray-700' : ''"
               >
                 Only Turbines with issues
               </div>
             </div>
           </div>
 
-          <div class="flex flex-wrap gap-4 lg:gap-8 items-center justify-center flex-1">
+          <div
+            class="flex flex-wrap gap-4 lg:gap-8 items-center justify-center flex-1"
+          >
             <div
               v-for="turbine in filteredTurbines"
               :key="turbine.id"
-              class="p-4 bg-white rounded-lg cursor-pointer lg:shadow-lg hover:bg-gray-100"
+              class="p-4 bg-white dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
               @click="setTurbine(turbine)"
             >
               <h2 class="font-bold">Turbine #{{ turbine.id }}</h2>
@@ -295,16 +315,13 @@ export default {
     },
     clearTurbine() {
       this.selectedTurbineId = null;
-
-      // It'd be nice to stop an animation externally without events
-      this.$refs.rig.dispatchEvent(new Event("stop"));
     },
   },
   computed: {
     cameraRotation() {
       return this.selectedTurbine !== null
-        ? "property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; loop: true; easing: linear; pauseEvents: stop"
-        : "property: rotation; from: 0 0 0; to: 0 0 0;";
+        ? "property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; loop: true; easing: linear;"
+        : "property: rotation; to: 0 0 0; dur: 1000; easing: linear;";
     },
     selectedTurbine() {
       return this.selectedTurbineId !== null
@@ -313,11 +330,15 @@ export default {
     },
     cameraPosition() {
       return this.selectedTurbine !== null
-        ? this.selectedTurbine.position
-        : [-3.5, 0, -3.5];
+        ? "property: position; to: " +
+            this.selectedTurbine.position.join(" ") +
+            "; dur: 1000; easing: linear;"
+        : "property: position; to: -3.5 0 -3.5; dur: 1000; easing: linear;";
     },
     cameraTrackPosition() {
-      return this.selectedTurbine !== null ? "30 31.380 30" : "50 51.380 50";
+      return this.selectedTurbine !== null
+        ? "property: position; to: 30 31.380 30; dur: 1000; easing: linear;"
+        : "property: position; to: 50 51.380 50; dur: 1000; easing: linear;";
     },
     filteredParts() {
       return this.selectedTurbine !== null
