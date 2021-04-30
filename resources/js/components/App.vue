@@ -9,7 +9,7 @@
       </a>
     </header>
     <div class="lg:flex flex-1 overflow-auto lg:overflow-hidden">
-      <aside class="lg:w-1/2 border-r bg-gray-100 h-1/2-screen lg:h-screen lg:h-auto relative pointer-events-none">
+      <aside class="lg:w-1/2 border-r bg-gray-100 h-1/2-screen lg:h-screen lg:h-auto relative">
         <a-scene
           embedded
           device-orientation-permission-ui
