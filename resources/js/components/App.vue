@@ -153,10 +153,10 @@
       <main class="lg:w-1/2 overflow-auto relative dark:text-white">
         <div v-if="selectedTurbine">
           <div
-            class="flex flex-col lg:flex-row items-center justify-between px-2 py-1 border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-gray-700"
+            class="flex flex-col lg:flex-row items-center justify-between px-2 py-1 border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-gray-700 pt-2 lg:pt-1"
           >
             <h1
-              class="lself-start flex items-center justify-center cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 rounded-full p-1 pr-2 lg:justify-left mb-4 lg:mb-0 font-bold dark:hover:text-gray-700"
+              class="lself-start flex items-center justify-center cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 rounded-full pl-1 py-0.5 lg:py-1 pr-2 lg:justify-left mb-2 lg:mb-0 font-bold dark:hover:text-gray-700"
               @click="clearTurbine"
             >
               <svg
@@ -174,7 +174,7 @@
               <div class="mx-1">Back</div>
             </h1>
             <div
-              class="flex items-center justify-center lg:justify-end text-xs gap-x-2 mb-4 lg:mb-0"
+              class="flex items-center justify-center lg:justify-end text-xs gap-x-2 mb-2 lg:mb-0"
             >
               <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">
                 Filter components:
@@ -273,10 +273,10 @@
         </div>
         <div v-else class="flex flex-col h-full">
           <div
-            class="lg:flex items-center justify-between p-2 lg:border-b dark:border-gray-500"
+            class="lg:flex items-center justify-between p-2 border-b dark:border-gray-500"
           >
             <h1
-              class="font-bold self-start mb-4 lg:mb-0 text-center lg:text-left"
+              class="font-bold self-start mb-2 lg:mb-0 text-center lg:text-left"
             >
               Turbines
             </h1>
@@ -310,7 +310,7 @@
           </div>
 
           <div
-            class="flex flex-wrap gap-4 lg:gap-8 items-center justify-center flex-1"
+            class="flex flex-wrap gap-4 lg:gap-8 items-center justify-center flex-1 p-4"
           >
             <div
               v-for="turbine in filteredTurbines"
