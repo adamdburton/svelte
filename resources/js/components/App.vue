@@ -46,12 +46,20 @@
             ></a-asset-item>
 
             <a-asset-item
-              id="turbine-obj"
-              src="/assets/SM_WindTurbine_02.obj"
+              id="turbine-body-obj"
+              src="/assets/Body.obj"
             ></a-asset-item>
             <a-asset-item
-              id="turbine-mtl"
-              src="/assets/SM_WindTurbine_02.mtl"
+              id="turbine-body-mtl"
+              src="/assets/Body.mtl"
+            ></a-asset-item>
+            <a-asset-item
+              id="turbine-blades-obj"
+              src="/assets/Blades.obj"
+            ></a-asset-item>
+            <a-asset-item
+              id="turbine-blades-mtl"
+              src="/assets/Blades.mtl"
             ></a-asset-item>
 
             <a-asset-item id="drone-obj" src="/assets/model.obj"></a-asset-item>
@@ -70,10 +78,13 @@
             shadow
           ></a-ocean>
 
-          <a-entity light="type: ambient; intensity: 0.6;"></a-entity>
+          <a-entity
+            light="type: ambient; intensity: 0.6;"
+            animation__intensity="property: light.intensity; from: 0.6; to: 0.2; loop: true; dur: 60000; dir: alternate; easing: linear"
+          ></a-entity>
 
           <a-entity
-            animation__rotation="property: rotation; from: 45 0 0; to: 45 360 0; loop: true; dur: 60000; dir: reverse; loop: true; easing: linear"
+            animation__rotation="property: rotation; from: 45 0 0; to: 45 360 0; loop: true; dur: 60000; dir: reverse; easing: linear"
           >
             <a-entity
               light="type: directional; castShadow: true; shadowCameraBottom: -15; shadowCameraLeft: -15; shadowCameraRight: 15; shadowCameraTop: 15; shadowMapHeight: 1024; shadowMapWidth: 1024; intensity: 0.7;"
@@ -92,13 +103,20 @@
           <a-obj-model
             v-for="turbine in turbines"
             :key="turbine.id"
-            src="#turbine-obj"
-            mtl="#turbine-mtl"
+            src="#turbine-body-obj"
+            mtl="#turbine-body-mtl"
             scale="0.075 0.075 0.075"
             :position="turbine.position.join(' ')"
             :rotation="turbine.rotation.join(' ')"
             shadow
-          ></a-obj-model>
+          >
+            <a-obj-model
+              src="#turbine-blades-obj"
+              mtl="#turbine-blades-mtl"
+              position="-3.072 -8.945 49.213"
+              :animation__rotation="bladesAnimationForTubine(turbine)"
+            ></a-obj-model>
+          </a-obj-model>
 
           <a-obj-model
             src="#drone-obj"
@@ -141,22 +159,43 @@
               class="lself-start flex items-center justify-center cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 rounded-full p-1 pr-2 lg:justify-left mb-4 lg:mb-0 font-bold dark:hover:text-gray-700"
               @click="clearTurbine"
             >
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
               <div class="mx-1">Back</div>
             </h1>
-            <div class="flex items-center justify-center lg:justify-end text-xs gap-x-2 mb-4 lg:mb-0">
-              <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">Filter components:</div>
+            <div
+              class="flex items-center justify-center lg:justify-end text-xs gap-x-2 mb-4 lg:mb-0"
+            >
+              <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">
+                Filter components:
+              </div>
               <div
                 class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="partFilter = ''"
-                :class="partFilter === '' ? 'bg-yellow-300 dark:text-gray-700' : ''"
+                :class="
+                  partFilter === '' ? 'bg-yellow-300 dark:text-gray-700' : ''
+                "
               >
                 All Components
               </div>
               <div
                 class="rounded-full px-2 py-0.5 cursor-pointer text-center hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="partFilter = 'issues'"
-                :class="partFilter === 'issues' ? 'bg-yellow-300 dark:text-gray-700' : ''"
+                :class="
+                  partFilter === 'issues'
+                    ? 'bg-yellow-300 dark:text-gray-700'
+                    : ''
+                "
               >
                 Only Components with issues
               </div>
@@ -165,10 +204,20 @@
 
           <table class="text-left w-full">
             <thead>
-              <tr class="text-gray-500 dark:text-gray-300 border-b dark:border-gray-500">
-                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal">Component</th>
-                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal">Issues</th>
-                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal text-right">Passing</th>
+              <tr
+                class="text-gray-500 dark:text-gray-300 border-b dark:border-gray-500"
+              >
+                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal">
+                  Component
+                </th>
+                <th class="p-2 bg-gray-100 dark:bg-gray-600 font-normal">
+                  Issues
+                </th>
+                <th
+                  class="p-2 bg-gray-100 dark:bg-gray-600 font-normal text-right"
+                >
+                  Passing
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -223,7 +272,9 @@
           </table>
         </div>
         <div v-else class="flex flex-col h-full">
-          <div class="lg:flex items-center justify-between p-2 lg:border-b dark:border-gray-500">
+          <div
+            class="lg:flex items-center justify-between p-2 lg:border-b dark:border-gray-500"
+          >
             <h1
               class="font-bold self-start mb-4 lg:mb-0 text-center lg:text-left"
             >
@@ -232,18 +283,26 @@
             <div
               class="flex items-center justify-center lg:justify-end text-xs gap-x-2"
             >
-              <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">Filter turbines:</div>
+              <div class="text-gray-500 dark:text-gray-300 px-2 py-0.5">
+                Filter turbines:
+              </div>
               <div
                 class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="turbineFilter = ''"
-                :class="turbineFilter === '' ? 'bg-yellow-300 dark:text-gray-700' : ''"
+                :class="
+                  turbineFilter === '' ? 'bg-yellow-300 dark:text-gray-700' : ''
+                "
               >
                 All Turbines
               </div>
               <div
                 class="rounded-full px-2 py-0.5 cursor-pointer hover:bg-gray-200 dark:hover:text-gray-700"
                 @click="turbineFilter = 'issues'"
-                :class="turbineFilter === 'issues' ? 'bg-yellow-300 dark:text-gray-700' : ''"
+                :class="
+                  turbineFilter === 'issues'
+                    ? 'bg-yellow-300 dark:text-gray-700'
+                    : ''
+                "
               >
                 Only Turbines with issues
               </div>
@@ -256,7 +315,7 @@
             <div
               v-for="turbine in filteredTurbines"
               :key="turbine.id"
-              class="p-4 bg-white dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
+              class="p-4 bg-white dark:bg-gray-700 rounded-lg cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-500"
               @click="setTurbine(turbine)"
             >
               <h2 class="font-bold">Turbine #{{ turbine.id }}</h2>
@@ -315,6 +374,11 @@ export default {
     },
     clearTurbine() {
       this.selectedTurbineId = null;
+    },
+    bladesAnimationForTubine(turbine) {
+      return turbine.parts.filter((part) => part.issues.length > 0).length > 0
+        ? "property: rotation; from: 0 0 0; to: 0 0 0"
+        : "property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 2000; dir: reverse; easing: linear";
     },
   },
   computed: {
